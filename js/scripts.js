@@ -1,47 +1,46 @@
 //business
 
-var cryptoCode = function(sentence) {
 
-  var sentenceArray = sentence.split(" ");
 
-  var punctuation = [".", ",", "-", "?", "'", "!"];
+var romConvert = function(num) {
+  var numberArray = [1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000];
 
-  var newSentence = [];
+  var numerals = ["I", "IV", "V", "IX", "X", "XL", "L", "LC", "C", "CD", "D", "CM", "M"];
 
-  for (i = 0; i < sentenceArray.length; i++){
-    var wordArray = sentenceArray[i].split("");
+  var resultArray = [];
 
-    for (j = 0; j < wordArray.length; j++) {
 
-      for(k = 0; k < punctuation.length; k++) {
-        if(wordArray[j]===punctuation[k]){
-          delete(wordArray[j]);
-        }
-      }
-      if (wordArray[j] != undefined){
-        newSentence.push(wordArray[j]);
+
+  while(num > 0) {
+
+    for(i = 0; i < numberArray.length; i++) {
+      if (numberArray[i] <= num && numberArray[i+1] > num) {
+        resultArray.push(numerals[i]);
+        num -= numberArray[i];
       }
     }
+
   }
 
-var codeSquare = [];
+  console.log(resultArray.join(""));
 
-var squareMeasurements = Math.ceil(Math.sqrt(newSentence.length));
-var newSentence = newSentence.reverse();
-for(i = 0; i <= squareMeasurements; i++) {
 
-  var row = newSentence.splice(-squareMeasurements).reverse();
+};
 
-  if (i === squareMeasurements && row.length < squareMeasurements) {
-    row.push(" ");
-  }
 
-  codeSquare.push(row);
-}
 
-console.log(codeSquare);
-var letters = [];
 
+
+
+//user
+$(document).ready(function(){
+$("form").submit(function(event){
+event.preventDefault();
+var userInput = $("input#num").val();
+romConvert(userInput);
+
+});
+});
 for(index = 0; index < (codeSquare[index].length - 1); index++) {
 
   for(j = 0; j < codeSquare[j].length; j++) {
